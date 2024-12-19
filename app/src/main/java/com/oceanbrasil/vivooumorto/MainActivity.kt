@@ -2,6 +2,7 @@ package com.oceanbrasil.vivooumorto
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -43,12 +44,16 @@ class MainActivity : AppCompatActivity() {
 
         val api = retrofit.create(RickAndMortyApi::class.java)
 
+        val characterName = findViewById<TextView>(R.id.characterName)
+
         val call = api.getCharacter(100)
         call.enqueue(object : retrofit2.Callback<CharacterRM> {
             override fun onResponse(p0: Call<CharacterRM>, resp: Response<CharacterRM>) {
                 if (resp.isSuccessful) {
                     val characterRM = resp.body()
-                    characterRM?.let { Log.d("OCEAN", it.name) }
+                    characterRM?.let {
+                        characterName.text = it.name
+                    }
                 } else {
                     Toast.makeText(applicationContext,
                         "Erro: ${resp.code()}"
