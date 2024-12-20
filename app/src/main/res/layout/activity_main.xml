@@ -27,4 +27,13 @@
         app:layout_constraintTop_toBottomOf="@+id/characterName"
         />
 
+    <Button
+        android:id="@+id/buttonReload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recarregar"
+        app:layout_constraintStart_toStartOf="@+id/characterName"
+        app:layout_constraintTop_toBottomOf="@+id/characterStatus"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

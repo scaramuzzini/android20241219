@@ -2,6 +2,7 @@ package com.oceanbrasil.vivooumorto
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -27,6 +28,10 @@ interface RickAndMortyApi {
 }
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var characterName: TextView
+    private lateinit var characterStatus: TextView
+    private lateinit var api: RickAndMortyApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,12 +47,20 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val api = retrofit.create(RickAndMortyApi::class.java)
+        api = retrofit.create(RickAndMortyApi::class.java)
 
-        val characterName = findViewById<TextView>(R.id.characterName)
-        val characterStatus = findViewById<TextView>(R.id.characterStatus)
+        characterName = findViewById<TextView>(R.id.characterName)
+        characterStatus = findViewById<TextView>(R.id.characterStatus)
+        val randomId = (1..800).random()
+        carregarPersonagem(randomId)
 
-        val call = api.getCharacter(100)
+        val buttonRecarregar = findViewById<Button>(R.id.buttonReload)
+        buttonRecarregar.setOnClickListener {
+            carregarPersonagem((1..800).random())
+        }
+    }
+    private fun carregarPersonagem(randomId: Int) {
+        val call = api.getCharacter(randomId)
         call.enqueue(object : retrofit2.Callback<CharacterRM> {
             override fun onResponse(p0: Call<CharacterRM>, resp: Response<CharacterRM>) {
                 if (resp.isSuccessful) {
@@ -70,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
     }
+
+
 }
