@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val api = retrofit.create(RickAndMortyApi::class.java)
 
         val characterName = findViewById<TextView>(R.id.characterName)
+        val characterStatus = findViewById<TextView>(R.id.characterStatus)
 
         val call = api.getCharacter(100)
         call.enqueue(object : retrofit2.Callback<CharacterRM> {
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                     val characterRM = resp.body()
                     characterRM?.let {
                         characterName.text = it.name
+                        characterStatus.text = it.status
                     }
                 } else {
                     Toast.makeText(applicationContext,
