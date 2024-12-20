@@ -3,12 +3,14 @@ package com.oceanbrasil.vivooumorto
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -19,7 +21,8 @@ import retrofit2.http.Path
 data class CharacterRM(
     val id: Int,
     val name: String,
-    val status: String
+    val status: String,
+    val image: String
 )
 
 interface RickAndMortyApi {
@@ -30,6 +33,7 @@ interface RickAndMortyApi {
 class MainActivity : AppCompatActivity() {
     private lateinit var characterName: TextView
     private lateinit var characterStatus: TextView
+    private lateinit var characterImage: ImageView
     private lateinit var api: RickAndMortyApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         characterName = findViewById<TextView>(R.id.characterName)
         characterStatus = findViewById<TextView>(R.id.characterStatus)
+        characterImage = findViewById<ImageView>(R.id.characterImage)
         val randomId = (1..800).random()
         carregarPersonagem(randomId)
 
@@ -68,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                     characterRM?.let {
                         characterName.text = it.name
                         characterStatus.text = it.status
+                        Glide.with(applicationContext).load(it.image).into(characterImage);
                     }
                 } else {
                     Toast.makeText(applicationContext,

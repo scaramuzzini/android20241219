@@ -27,13 +27,21 @@
         app:layout_constraintTop_toBottomOf="@+id/characterName"
         />
 
+    <ImageView
+        android:id="@+id/characterImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="@+id/characterName"
+        app:layout_constraintTop_toBottomOf="@+id/characterStatus"
+        />
+
     <Button
         android:id="@+id/buttonReload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Recarregar"
         app:layout_constraintStart_toStartOf="@+id/characterName"
-        app:layout_constraintTop_toBottomOf="@+id/characterStatus"
+        app:layout_constraintTop_toBottomOf="@+id/characterImage"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
